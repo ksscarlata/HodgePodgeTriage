@@ -23,93 +23,8 @@ namespace HodgePodgeTriage
         }
     }
 }
-
-
-class Patient //: IInjury
-    {
-        #region FIELDS
-        private string _patientName;
-        private int _patientAge;
-        private bool _patientBreathing = true;
-        private string _patientInjury = "'I don't feel any pain there.'";        
-        private bool _walking;
-        private bool _coherent = true;
-        private int _respirations;
-        #endregion
-
-        #region CONSTRUCTORS
-        public Patient() //default
-        {
-            this._patientAge = 0;
-            this._patientName = "No patient.";
-            this._patientBreathing = true;
-            this._patientInjury = "No injury.";            
-        }
-        public Patient(string name, int age, bool breathing) //parameterized
-        {               
-            this._patientAge = age;
-            this._patientName = name;
-            this._patientBreathing = breathing;
-            //this._patientInjury = injury;
-        }
-        public Patient(Patient p) //copy
-        {
-            this._patientAge = p.PatientAge;
-            this._patientName = p.PatientName;
-            this._patientBreathing = p._patientBreathing;
-            this._patientInjury = p._patientInjury;
-        }       
-        # endregion
-
-        #region PROPERTIES
-        public string PatientName { get => _patientName; set => _patientName = value; }
-        public int PatientAge { get => _patientAge; set => _patientAge = value; }
-        public bool Breathing
-        {
-            get
-            {
-                if (_patientName == "Keith")
-                {                    
-                    return _patientBreathing = false;
-
-                }
-                else 
-                {
-                    return _patientBreathing = true;
-                }
-            }
-            set => _patientBreathing = value;
-        }
-        public string PatientInjury
-        {
-            get => _patientInjury;
-            set
-            {
-                    if (PatientName.Contains("Keith"))
-                    {
-                        _patientInjury = "Ouch! That hurts!!";
-                    }
-            }
-                
-        }
-
-        //public string BodyPartInjury { get => PatientInjury; set => }
-        //string BodyPartName { get; set; }
-        
-
-        #endregion
-
-        #region METHODS
-
-        //public void InitializePatientBodyParts(Patient k)
-        //{
-
-        //}
-
-        #endregion
-    }
     
-     class Patient // : IInjury
+class Patient // : IInjury
     {
         //TRY TO MAKE CLASSES RESPONSIBLE FOR ONLY ONE RESPONSIBILITY
         //FOR EASY UPDATING AND FUTURE CHANGES
@@ -212,7 +127,9 @@ class Patient //: IInjury
     
     
     public partial class Form1 : Form
-    {        
+    {
+        internal Patient CurrentPatient = new Patient(); //patient k created for use in Form1
+
         public Form1()
         {
             InitializeComponent();
@@ -238,63 +155,45 @@ class Patient //: IInjury
 
         }
 
-        #region NEW PATIENT BUTTON
-        private Patient k = new Patient(); //patient k created for use in Form1
-        internal Patient K { get => k; set => k = value; } //incapsulated k for use only in Form1 class
+        
+        #region NEW PATIENT BUTTON   
+        /// <summary>
+        /// sets CurrentPatient to CreatePatientFromList() and prints CurrentPatient info to textbox2
+        /// </summary>
+        private void NewPatientButton_Click(object sender, EventArgs e)
+        {
+            CurrentPatient =  CurrentPatient.CreatePatientFromList(); //points CurrentPatient to random list in Patient()
 
-        //
-        // Summary:
-        //     Initializes new instances of Patient() 
-        private void button1_Click(object sender, EventArgs e)
-        {            
-            List<Patient> patienList = new List<Patient>();
-            patienList.Add(new Patient("Keith", 37, false));
-            patienList.Add(new Patient("Jerry", 60, true));
-            patienList.Add(new Patient("Cory", 35, true));
-            patienList.Add(new Patient("Jeff", 35, true));
-            patienList.Add(new Patient("Roosevelt", 38, true));
-            patienList.Add(new Patient("Rosario", 38, true));
+            textBox1.Text = CurrentPatient.PatientName;
 
-            Random rnd = new Random();
-            patienList = patienList.OrderBy(item => rnd.Next()).ToList(); //sorts patientList randomly
+            //print CurrentPatient info in textbox2
+            textBox2.Text =  
+                "Name:\t" + CurrentPatient.PatientName + "\r\n" +
+                "Age:\t" + Convert.ToString(CurrentPatient.PatientAge) + "\r\n" +
+                "Injury:\t" + CurrentPatient.PatientInjury + "\r\n" +
+                "Breathing:\t" + CurrentPatient.Breathing;
 
-            K = patienList.ElementAt(0);
-            
-            textBox1.Text = K.PatientName;
-            
-            string ok;
-            if (K.Breathing == false)
-            {
-                ok = "NOT";
-            }
-            else ok = "";
+            checkBox1.Checked = CurrentPatient.Breathing;
+        }        
+        #endregion
 
-            textBox2.Text = 
-                "Name: " + "\r\t" + K.PatientName + "\r\n" +
-                "Age: " + "\r\t" + Convert.ToString(K.PatientAge) + "\r\n" +
-                K.PatientName + " is " + ok + " breathing!";
-           
-            checkBox1.Checked = K.Breathing;            
-        }
-        #endregion        
-       
         private void button10_Click(object sender, EventArgs e)
         {
 
         }
 
         #region HEAD BUTTON
-        private void button2_Click(object sender, EventArgs e)
+        private void HeadButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(K.PatientName + "'s head is ok.");
+            MessageBox.Show(CurrentPatient.PatientName + "'s head is ok.");
         }
-        private void button2_MouseEnter(object sender, EventArgs e)
+        private void HeadButton_MouseEnter(object sender, EventArgs e)
         {
-            textBox1.Text = "This is " + K.PatientName + "'s head.";
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s head.";
         }
-        private void button2_MouseLeave(object sender, EventArgs e)
+        private void HeadButton_MouseLeave(object sender, EventArgs e)
         {
-            textBox1.Text = "";
+            textBox1.Text = null;
         }
         #endregion
 
@@ -319,6 +218,37 @@ class Patient //: IInjury
         }
 
         private void textBox2_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+        #region CLEAR AIRWAY BUTTON        
+        private void ClearAirwayButton_Click(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == false)
+            {
+                checkBox1.Checked = true;
+                CurrentPatient.Breathing = true;
+                MessageBox.Show(CurrentPatient.PatientName + " is breathing again! Great job!");
+            }
+            else
+            {
+                MessageBox.Show("No reason for this, " + CurrentPatient.PatientName +
+                                " is breathing just fine.");
+            }
+        }
+        #endregion
+
+        #region ER BUTTON
+        private void ErButton_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = CurrentPatient.PatientName + " has been sent to the ER.";
+            textBox2.Text = String.Empty;
+            CurrentPatient = null;
+            
+        }
+        #endregion
+
+        private void button24_Click(object sender, EventArgs e)
         {
 
         }
