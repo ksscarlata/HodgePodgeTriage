@@ -109,52 +109,87 @@ class Patient //: IInjury
         #endregion
     }
     
-    
-    class Head : Patient //, IInjury
-    {        
-        private string _headOwner;
-        private string _headInjury;
-        protected static string _headName = "head";
+     class Patient // : IInjury
+    {
+        //TRY TO MAKE CLASSES RESPONSIBLE FOR ONLY ONE RESPONSIBILITY
+        //FOR EASY UPDATING AND FUTURE CHANGES
+        
+        #region FIELDS
+        private string _patientName;
+        private int _patientAge;
+        private bool _patientBreathing;
+        private string _patientInjury = "'I don't feel any pain there.'";        
+        //private bool _walking;
+        //private bool _coherent = true;
+        //private int _respirations;
+        #endregion
 
-        public string HeadOwner { get => _headOwner; set => _headOwner = PatientName; }
-        public string HeadInjury { get => _headInjury; set => _headInjury = PatientInjury; }
-        public string HeadName { get => _headName; set => _headName = "head"; }
+        #region CONSTRUCTORS
+        public Patient() //default
+        {            
+            this._patientAge = 0;
+            this._patientName = "No patient";
+            this._patientBreathing = true;
+            this._patientInjury = "No injury.";
+        }
+        public Patient(string name, int age, bool breathing, string patientInjury) //parameterized
+        {               
+            this._patientAge = age;
+            this._patientName = name;
+            this._patientBreathing = breathing;
+            this._patientInjury = patientInjury;
+        }
+        public Patient(Patient p) //copy
+        {
+            this._patientAge = p.PatientAge;
+            this._patientName = p.PatientName;
+            this._patientBreathing = p._patientBreathing;
+            this._patientInjury = p._patientInjury;
+        }
+        #endregion
 
+        #region PROPERTIES
+        //encapsulate private fields
+        public string PatientName { get => _patientName; set => _patientName = value; }
+        public int PatientAge { get => _patientAge; set => _patientAge = value; }
+        public bool Breathing { get => _patientBreathing; set => _patientBreathing = value; }        
+        public string PatientInjury
+        {
+            get => _patientInjury;
+            set
+            {
+                if (PatientName.Contains("Keith"))
+                {
+                    _patientInjury = "Ouch! That hurts!!";
+                }
+            }                
+        }
+        #endregion
 
-        //private string _owner { get => _Owner; set => _Owner = value; }
-        ////public string Name { get; set; }
-        //public bool Injured { get; set; }
+        #region METHODS
+        /// <summary>
+        /// Makes a list of Patient(), randomizes it, and returns first Patient() in list
+        /// </summary>
+        public Patient CreatePatientFromList()
+        {
+            //originally had List<> in Form1.cs but moved here to try to clean up "dirty" code
 
+            List<Patient> patienList = new List<Patient>(); //list of patients
+            patienList.Add(new Patient("Keith", 37, false, "Can't breath!"));
+            patienList.Add(new Patient("Jerry", 60, true, "Sharp pain in chest!"));
+            patienList.Add(new Patient("Cory", 35, true, "women"));
+            patienList.Add(new Patient("Jeff", 35, true, "money"));
+            patienList.Add(new Patient("Roosevelt", 38, true, "My groin is on fire!"));
+            patienList.Add(new Patient("Rosario", 38, true, "nothing at all"));
 
-        //public Head (string owner, string name)
-        //{
-        //    _owner = owner;
-        //    Name = name;
-        //    if (name.Contains("keith"))
-        //    {
-        //        Injured = true;
-        //    }
-        //    else
-        //    {
-        //        Injured = false;
-        //    }
-        //    _owner = owner;
-        //    Name = name;
+            Random rnd = new Random();
+            patienList = patienList.OrderBy(item => rnd.Next()).ToList(); //sorts patientList randomly
 
-
-        //}
-
-        //public void BelongsTo()
-        //{
-        //    Console.WriteLine("this is {0}'s head.", PatientName);
-        //}
-        //public void IsMissing()
-        //{
-        //    Console.WriteLine("{0}'s head is gone!", PatientName);
-        //}
-
-       
+            return patienList.ElementAt(0); //use of first patient in randomized list
+        }
+        #endregion
     }
+    
     
     
     public interface IInjury
