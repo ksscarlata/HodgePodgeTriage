@@ -221,6 +221,7 @@ class Patient // : IInjury
         {
 
         }
+        
       #region CLEAR AIRWAY BUTTON        
         private void ClearAirwayButton_Click(object sender, EventArgs e)
         {
@@ -230,8 +231,8 @@ class Patient // : IInjury
                 {
                     checkBox1.Checked = true;
                     CurrentPatient.Breathing = true;
-                    MessageBox.Show(CurrentPatient.PatientName + " is breathing again! Great job!"); //THIS NEEDS TO UPDATE STATS BOX
-                    CurrentPatient.PatientInjury = "My neck feels great now thanks!"; //THIS NEEDS TO UPDATE STATS BOX                
+                    MessageBox.Show(CurrentPatient.PatientName + " is breathing again! Great job!"); 
+                    CurrentPatient.PatientInjury = "My neck feels great now thanks!";              
                 }
                 else
                 {
