@@ -250,10 +250,12 @@ class Patient // : IInjury
         #region ER BUTTON
         private void ErButton_Click(object sender, EventArgs e)
         {
-            textBox1.Text = CurrentPatient.PatientName + " has been sent to the ER.";
-            textBox2.Text = String.Empty;
-            CurrentPatient = null;
-            
+            if (CurrentPatient != null)
+            {
+                textBox1.Text = CurrentPatient.PatientName + " has been sent to the ER.";
+                textBox2.Text = String.Empty;
+                CurrentPatient = new Patient();
+            }            
         }
         #endregion
 
