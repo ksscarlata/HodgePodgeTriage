@@ -221,20 +221,29 @@ class Patient // : IInjury
         {
 
         }
-        #region CLEAR AIRWAY BUTTON        
+      #region CLEAR AIRWAY BUTTON        
         private void ClearAirwayButton_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == false)
+            if (CurrentPatient != null)
             {
-                checkBox1.Checked = true;
-                CurrentPatient.Breathing = true;
-                MessageBox.Show(CurrentPatient.PatientName + " is breathing again! Great job!");
-            }
-            else
-            {
-                MessageBox.Show("No reason for this, " + CurrentPatient.PatientName +
-                                " is breathing just fine.");
-            }
+                if (checkBox1.Checked == false)
+                {
+                    checkBox1.Checked = true;
+                    CurrentPatient.Breathing = true;
+                    MessageBox.Show(CurrentPatient.PatientName + " is breathing again! Great job!"); //THIS NEEDS TO UPDATE STATS BOX
+                    CurrentPatient.PatientInjury = "My neck feels great now thanks!"; //THIS NEEDS TO UPDATE STATS BOX                
+                }
+                else
+                {
+                    MessageBox.Show("No reason for this, " + CurrentPatient.PatientName +
+                                    " is breathing just fine.");
+                }
+                textBox2.Text =
+                    "Name:\t" + CurrentPatient.PatientName + "\r\n" +
+                    "Age:\t" + Convert.ToString(CurrentPatient.PatientAge) + "\r\n" +
+                    "Injury:\t" + CurrentPatient.PatientInjury + "\r\n" +
+                    "Breathing:\t" + CurrentPatient.Breathing;
+            }           
         }
         #endregion
 
