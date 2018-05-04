@@ -24,19 +24,13 @@ namespace HodgePodgeTriage
     }
 }
     
-class Patient // : IInjury
-    {
-        //TRY TO MAKE CLASSES RESPONSIBLE FOR ONLY ONE RESPONSIBILITY
-        //FOR EASY UPDATING AND FUTURE CHANGES
-        
+ class Patient 
+    {       
         #region FIELDS
         private string _patientName;
         private int _patientAge;
         private bool _patientBreathing;
-        private string _patientInjury = "'I don't feel any pain there.'";        
-        //private bool _walking;
-        //private bool _coherent = true;
-        //private int _respirations;
+        private string _patientInjury = "I don't feel any pain there.";
         #endregion
 
         #region CONSTRUCTORS
@@ -47,14 +41,14 @@ class Patient // : IInjury
             this._patientBreathing = true;
             this._patientInjury = "No injury.";
         }
-        public Patient(string name, int age, bool breathing, string patientInjury) //parameterized
+        public Patient( string name, int age, bool breathing, string patientInjury ) //parameterized
         {               
             this._patientAge = age;
             this._patientName = name;
             this._patientBreathing = breathing;
             this._patientInjury = patientInjury;
         }
-        public Patient(Patient p) //copy
+        public Patient( Patient p ) //copy
         {
             this._patientAge = p.PatientAge;
             this._patientName = p.PatientName;
@@ -64,21 +58,22 @@ class Patient // : IInjury
         #endregion
 
         #region PROPERTIES
-        //encapsulate private fields
+        //encapsulate private fields with getters and setters
         public string PatientName { get => _patientName; set => _patientName = value; }
         public int PatientAge { get => _patientAge; set => _patientAge = value; }
         public bool Breathing { get => _patientBreathing; set => _patientBreathing = value; }        
         public string PatientInjury
         {
             get => _patientInjury;
-            set
-            {
-                if (PatientName.Contains("Keith"))
-                {
-                    _patientInjury = "Ouch! That hurts!!";
-                }
-            }                
-        }
+            set => _patientInjury = value;
+            //TRIED SETTING THIS BELOW BUT THEN COULDN'T SET IT WITH ANYTHING BUT WHAT'S TYPED HERE IN SETTER
+            //{
+            //    if (PatientName.Contains("Keith"))
+            //    {
+            //        _patientInjury = "My neck is still sore, but I'll live.";
+            //    }
+            //}                
+        }      
         #endregion
 
         #region METHODS
@@ -89,22 +84,24 @@ class Patient // : IInjury
         {
             //originally had List<> in Form1.cs but moved here to try to clean up "dirty" code
 
-            List<Patient> patienList = new List<Patient>(); //list of patients
-            patienList.Add(new Patient("Keith", 37, false, "Can't breath!"));
-            patienList.Add(new Patient("Jerry", 60, true, "Sharp pain in chest!"));
-            patienList.Add(new Patient("Cory", 35, true, "women"));
-            patienList.Add(new Patient("Jeff", 35, true, "money"));
-            patienList.Add(new Patient("Roosevelt", 38, true, "My groin is on fire!"));
-            patienList.Add(new Patient("Rosario", 38, true, "nothing at all"));
+            List<Patient> patientList = new List<Patient>(); //list of patients
+            patientList.Add(new Patient("Keith Scarlata", 38, false, "My neck! I Can't breath!"));
+            patientList.Add(new Patient("Jerry Koetzle", 60, true, "Sharp pain in my chest!"));
+            patientList.Add(new Patient("Cory Small", 35, true, "My knee hurts!"));
+            patientList.Add(new Patient("Jeff Christensen", 35, true, "Give me money!"));
+            patientList.Add(new Patient("Roosevelt Lungren", 38, true, "My groin is on fire!"));
+            patientList.Add(new Patient("Rosario Dawson", 38, true, "Absolutely nothing at all :)"));
+            patientList.Add(new Patient("Danny Dressing", 38, true, "Ahh! My left hand!!"));
+            patientList.Add(new Patient("Steve Koppman", 59, true, "My right lower leg is killing me!"));
+            patientList.Add(new Patient("Phoenix Scarlata", 8, true, "Wait! This is a dog!"));
 
             Random rnd = new Random();
-            patienList = patienList.OrderBy(item => rnd.Next()).ToList(); //sorts patientList randomly
-
-            return patienList.ElementAt(0); //use of first patient in randomized list
+            patientList = patientList.OrderBy(item => rnd.Next()).ToList(); //sorts patientList randomly            
+            
+            return patientList.ElementAt(0); //use of first patient in randomized list            
         }
         #endregion
     }
-    
     
     
     public interface IInjury
