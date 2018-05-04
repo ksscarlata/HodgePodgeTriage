@@ -125,36 +125,35 @@ namespace HodgePodgeTriage
     
     public partial class Form1 : Form
     {
-        internal Patient CurrentPatient = new Patient(); //patient k created for use in Form1
+        internal Patient CurrentPatient = new Patient(); //CurrentPatient created for use in Form1
         internal Patient DifferentPatient = new Patient(); //check for different Patient used in NewPatientButton
 
         public Form1()
-        {
+        { 
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            
+        {            
         }
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-
         }
 
-        
-       #region NEW PATIENT BUTTON   
+        private void button10_Click(object sender, EventArgs e)
+        {
+        }
+
+        #region NEW PATIENT BUTTON   
         /// <summary>
         /// sets CurrentPatient to CreatePatientFromList() and prints CurrentPatient info to textbox2
         /// </summary>
@@ -174,61 +173,51 @@ namespace HodgePodgeTriage
             textBox2.Text =
                 "Name:\t" + CurrentPatient.PatientName + "\r\n" +
                 "Age:\t" + Convert.ToString(CurrentPatient.PatientAge) + "\r\n" +
-                "\t\tComplaint:\r\n\t" + CurrentPatient.PatientInjury;
-                
-                //+ "\r\n" +
-                //"Breathing:\t" + CurrentPatient.Breathing;
+                "Complaint: \r\n\t" + CurrentPatient.PatientInjury;
 
-            checkBox1.Checked = CurrentPatient.Breathing;            
+            checkBox1.Checked = CurrentPatient.Breathing;
+            checkBox2.Checked = CurrentPatient.PatientResponsive;
         }
         #endregion
-        
-        private void button10_Click(object sender, EventArgs e)
-        {
-
-        }
 
         #region HEAD BUTTON
         private void HeadButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(CurrentPatient.PatientName + "'s head is ok.");
+            if (CurrentPatient != null)
+            {
+                MessageBox.Show(CurrentPatient.PatientName + "'s head is ok.");
+            }            
         }
+
         private void HeadButton_MouseEnter(object sender, EventArgs e)
         {
             textBox1.Text = "This is " + CurrentPatient.PatientName + "'s head.";
         }
+
         private void HeadButton_MouseLeave(object sender, EventArgs e)
         {
             textBox1.Text = null;
         }
         #endregion
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        #region NECK BUTTON
+        private void NeckButton_Click(object sender, EventArgs e)
         {
-            
+            if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("neck"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s neck is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s neck is ok.");
+                }
+            }
         }
+        #endregion
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-        
-       #region CLEAR AIRWAY BUTTON        
+        #region CLEAR AIRWAY BUTTON        
         private void ClearAirwayButton_Click(object sender, EventArgs e)
         {
             if (CurrentPatient != null)
@@ -236,7 +225,7 @@ namespace HodgePodgeTriage
                 if (checkBox1.Checked == false)
                 {
                     CurrentPatient.Breathing = true;
-                    checkBox1.Checked = true;                    
+                    checkBox1.Checked = true;
                     MessageBox.Show(CurrentPatient.PatientName + " is breathing again! Great job!");
                     CurrentPatient.PatientInjury = "Whew, that's more like it! Thanks!";
                 }
@@ -245,13 +234,38 @@ namespace HodgePodgeTriage
                     MessageBox.Show("No reason for this, " + CurrentPatient.PatientName +
                                     " is breathing just fine.");
                 }
-                
+
                 textBox2.Text =
-                    "Name:\t" + CurrentPatient.PatientName + "\r\n" +
-                    "Age:\t" + Convert.ToString(CurrentPatient.PatientAge) + "\r\n" +
-                    "Complaint:\t" + CurrentPatient.PatientInjury + "\r\n" +
-                    "Breathing:\t" + CurrentPatient.Breathing;
-            }           
+                "Name:\t" + CurrentPatient.PatientName + "\r\n" +
+                "Age:\t" + Convert.ToString(CurrentPatient.PatientAge) + "\r\n" +
+                "Response: \r\n\t" + CurrentPatient.PatientInjury;
+            }
+        }
+        #endregion
+
+        #region DEFIBRILLATOR BUTTON
+        private void DefibrillatorButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient != null)
+            {
+                if (checkBox2.Checked == false)
+                {
+                    CurrentPatient.PatientResponsive = true;
+                    checkBox2.Checked = true;
+                    MessageBox.Show(CurrentPatient.PatientName + " was revived! Great job!");
+                    CurrentPatient.PatientInjury = "Whoah, where am I? What happened?";
+                }
+                else
+                {
+                    MessageBox.Show("No reason for this, " + CurrentPatient.PatientName +
+                                    " is awake and responsive.");
+                }
+
+                textBox2.Text =
+                "Name:\t" + CurrentPatient.PatientName + "\r\n" +
+                "Age:\t" + Convert.ToString(CurrentPatient.PatientAge) + "\r\n" +
+                "Response: \r\n\t" + CurrentPatient.PatientInjury;
+            }
         }
         #endregion
 
@@ -263,12 +277,51 @@ namespace HodgePodgeTriage
                 textBox1.Text = CurrentPatient.PatientName + " has been sent to the ER.";
                 textBox2.Text = String.Empty;
                 CurrentPatient = new Patient();
-            }            
+            }
         }
         #endregion
 
-        private void button24_Click(object sender, EventArgs e)
+        #region WAITING ROOM BUTTON
+        private void WaitingRoomButton_Click(object sender, EventArgs e)
         {
+            if (CurrentPatient != null)
+            {
+                textBox1.Text = CurrentPatient.PatientName + " has been sent to the waiting room.";
+                textBox2.Text = String.Empty;
+                CurrentPatient = new Patient();
+            }
+        }
+        #endregion
 
+        #region YOU'RE JUST FINE BUTTON
+        private void YoureJustFineButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient != null)
+            {
+                textBox1.Text = "Get out of here " + CurrentPatient.PatientName + ". You're fine!";
+                textBox2.Text = String.Empty;
+                CurrentPatient = new Patient();
+            }
+        }
+        #endregion
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {            
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {            
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void textBox2_TextChanged_1(object sender, EventArgs e)
+        {
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
         }
     }
