@@ -154,27 +154,35 @@ namespace HodgePodgeTriage
         }
 
         
-        #region NEW PATIENT BUTTON   
+       #region NEW PATIENT BUTTON   
         /// <summary>
         /// sets CurrentPatient to CreatePatientFromList() and prints CurrentPatient info to textbox2
         /// </summary>
         private void NewPatientButton_Click(object sender, EventArgs e)
         {
-            CurrentPatient =  CurrentPatient.CreatePatientFromList(); //points CurrentPatient to random list in Patient()
+            DifferentPatient = CurrentPatient;
+            
+            CurrentPatient = CurrentPatient.CreatePatientFromList(); //retrieves CurrentPatient from random list in Patient()
 
+            while (CurrentPatient.PatientName == DifferentPatient.PatientName) //CurrentPatient different than last used Patient()
+            {
+                CurrentPatient = CurrentPatient.CreatePatientFromList();
+            }
+            
             textBox1.Text = CurrentPatient.PatientName;
 
-            //print CurrentPatient info in textbox2
-            textBox2.Text =  
+            textBox2.Text =
                 "Name:\t" + CurrentPatient.PatientName + "\r\n" +
                 "Age:\t" + Convert.ToString(CurrentPatient.PatientAge) + "\r\n" +
-                "Injury:\t" + CurrentPatient.PatientInjury + "\r\n" +
-                "Breathing:\t" + CurrentPatient.Breathing;
+                "\t\tComplaint:\r\n\t" + CurrentPatient.PatientInjury;
+                
+                //+ "\r\n" +
+                //"Breathing:\t" + CurrentPatient.Breathing;
 
-            checkBox1.Checked = CurrentPatient.Breathing;
-        }        
+            checkBox1.Checked = CurrentPatient.Breathing;            
+        }
         #endregion
-
+        
         private void button10_Click(object sender, EventArgs e)
         {
 
