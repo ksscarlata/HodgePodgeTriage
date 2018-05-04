@@ -126,6 +126,7 @@ namespace HodgePodgeTriage
     public partial class Form1 : Form
     {
         internal Patient CurrentPatient = new Patient(); //patient k created for use in Form1
+        internal Patient DifferentPatient = new Patient(); //check for different Patient used in NewPatientButton
 
         public Form1()
         {
