@@ -219,27 +219,28 @@ namespace HodgePodgeTriage
 
         }
         
-      #region CLEAR AIRWAY BUTTON        
+       #region CLEAR AIRWAY BUTTON        
         private void ClearAirwayButton_Click(object sender, EventArgs e)
         {
             if (CurrentPatient != null)
             {
                 if (checkBox1.Checked == false)
                 {
-                    checkBox1.Checked = true;
                     CurrentPatient.Breathing = true;
-                    MessageBox.Show(CurrentPatient.PatientName + " is breathing again! Great job!"); 
-                    CurrentPatient.PatientInjury = "My neck feels great now thanks!";              
+                    checkBox1.Checked = true;                    
+                    MessageBox.Show(CurrentPatient.PatientName + " is breathing again! Great job!");
+                    CurrentPatient.PatientInjury = "Whew, that's more like it! Thanks!";
                 }
                 else
                 {
                     MessageBox.Show("No reason for this, " + CurrentPatient.PatientName +
                                     " is breathing just fine.");
                 }
+                
                 textBox2.Text =
                     "Name:\t" + CurrentPatient.PatientName + "\r\n" +
                     "Age:\t" + Convert.ToString(CurrentPatient.PatientAge) + "\r\n" +
-                    "Injury:\t" + CurrentPatient.PatientInjury + "\r\n" +
+                    "Complaint:\t" + CurrentPatient.PatientInjury + "\r\n" +
                     "Breathing:\t" + CurrentPatient.Breathing;
             }           
         }
