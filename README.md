@@ -109,7 +109,7 @@ namespace HodgePodgeTriage
         #endregion
     }   
    
-public partial class Form1 : Form
+    public partial class Form1 : Form
     {
         internal Patient CurrentPatient = new Patient(); //CurrentPatient created for use in Form1
         internal Patient DifferentPatient = new Patient(); //check for different Patient used in NewPatientButton
@@ -122,6 +122,8 @@ public partial class Form1 : Form
         private void Form1_Load(object sender, EventArgs e)
         {
         }
+
+        #region BUTTONS
 
         #region NEW PATIENT BUTTON   
         /// <summary>
@@ -145,8 +147,10 @@ public partial class Form1 : Form
                 "Age:\t" + Convert.ToString(CurrentPatient.PatientAge) + "\r\n" +
                 "Complaint: \r\n\t" + CurrentPatient.PatientInjury;
 
-            checkBox1.Checked = CurrentPatient.Breathing;
-            checkBox2.Checked = CurrentPatient.PatientResponsive;
+            checkBox1.Checked = CurrentPatient.Breathing; //check for breathing
+            checkBox2.Checked = CurrentPatient.Responsive; //check for response
+            checkBox3.Checked = CurrentPatient.Bleeding; //check for bleeding
+            checkBox4.Checked = CurrentPatient.Heartbeat; //check for heartbeat
         }
         #endregion
 
@@ -217,7 +221,14 @@ public partial class Form1 : Form
 
             else if (CurrentPatient != null)
             {
-                MessageBox.Show(CurrentPatient.PatientName + "'s chest is ok.");
+                if (CurrentPatient.PatientInjury.Contains("chest") || CurrentPatient.PatientInjury.Contains("heart"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s chest is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s chest is ok.");
+                }
             }            
         }
 
@@ -227,6 +238,517 @@ public partial class Form1 : Form
         }
 
         private void ChestButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region ABDOMEN BUTTON
+        private void AbdomenButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Just beautiful.");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("stomach") || CurrentPatient.PatientInjury.Contains("belly"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s abdomen is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s abdomen is ok.");
+                }
+            }
+        }
+
+        private void AbdomenButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s abdomen.";
+        }
+
+        private void AbdomenButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region GROIN BUTTON
+        private void GroinButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Absolutely nothing wrong here.");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("groin"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s groin is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s groin is ok.");
+                }
+            }
+        }
+
+        private void GroinButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s groin.";
+        }
+
+        private void GroinButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region LEFT SHOULDER BUTTON
+        private void LeftShoulderButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Great shoulders!");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("left") && CurrentPatient.PatientInjury.Contains("shoulder"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s left shoulder is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s left shoulder is ok.");
+                }
+            }
+        }
+
+        private void LeftShoulderButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s left shoulder.";
+        }
+
+        private void LeftShoulderButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region LEFT ARM BUTTON
+        private void LeftArmButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Lovely Arms!");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("left") && CurrentPatient.PatientInjury.Contains("arm"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s left arm is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s left arm is ok.");
+                }
+            }
+        }
+
+        private void LeftArmButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s left arm.";
+        }
+
+        private void LeftArmButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region LEFT HAND BUTTON
+        private void LeftHandButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Flawless!");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("left") && CurrentPatient.PatientInjury.Contains("hand"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s left hand is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s left hand is ok.");
+                }
+            }
+        }
+
+        private void LeftHandButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s left hand.";
+        }
+
+        private void LeftHandButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region RIGHT SHOULDER BUTTON
+        private void RightShoulderButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Great shoulders!");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("right") && CurrentPatient.PatientInjury.Contains("shoulder"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s right shoulder is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s right shoulder is ok.");
+                }
+            }
+        }
+
+        private void RightShoulderButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s right shoulder.";
+        }
+
+        private void RightShoulderButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region RIGHT ARM BUTTON
+        private void RightArmButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Lovely arms!");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("right") && CurrentPatient.PatientInjury.Contains("arm"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s right arm is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s right arm is ok.");
+                }
+            }
+        }
+        private void RightArmButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s right arm.";
+        }
+
+        private void RightArmButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region RIGHT HAND BUTTON
+        private void RightHandButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Flawless!");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("right") && CurrentPatient.PatientInjury.Contains("hand"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s right hand is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s right hand is ok.");
+                }
+            }
+        }
+
+        private void RightHandButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s right hand.";
+        }
+
+        private void RightHandButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region LEFT THIGH BUTTON
+        private void LeftThighButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Perfection!");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("left") && CurrentPatient.PatientInjury.Contains("thigh"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s left thigh is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s left thigh is ok.");
+                }
+            }
+        }
+
+        private void LeftThighButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s left thigh.";
+        }
+
+        private void LeftThighButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region LEFT KNEE BUTTON
+        private void LeftKneeButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Not even a scratch!");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("left") && CurrentPatient.PatientInjury.Contains("knee"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s left knee is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s left knee is ok.");
+                }
+            }
+        }
+
+        private void LeftKneeButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s left knee.";
+        }
+
+        private void LeftKneeButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region LEFT SHIN BUTTON
+        private void LeftShinButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Great legs!");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("left") && CurrentPatient.PatientInjury.Contains("shin"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s left shin is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s left shin is ok.");
+                }
+            }
+        }
+
+        private void LeftShinButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s left shin.";
+        }
+
+        private void LeftShinButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region LEFT FOOT BUTTON
+        private void LeftFootButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("These little piggies are doing great!");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("left") && CurrentPatient.PatientInjury.Contains("foot"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s left foot is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s left foot is ok.");
+                }
+            }
+        }
+
+        private void LeftFootButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s left foot.";
+        }
+
+        private void LeftFootButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region RIGHT THIGH BUTTON
+        private void RightThighButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Perfection!");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("right") && CurrentPatient.PatientInjury.Contains("thigh"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s right thigh is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s right thigh is ok.");
+                }
+            }
+        }
+
+        private void RightThighButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s right thigh.";
+        }
+
+        private void RightThighButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region RIGHT KNEE BUTTON
+        private void RightKneeButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Not even a scratch!");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("right") && CurrentPatient.PatientInjury.Contains("knee"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s right knee is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s right knee is ok.");
+                }
+            }
+        }
+
+        private void RightKneeButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s right knee.";
+        }
+
+        private void RightKneeButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region RIGHT SHIN BUTTON
+        private void RightShinButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Great legs!");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("right") && CurrentPatient.PatientInjury.Contains("shin"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s right shin is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s right shin is ok.");
+                }
+            }
+        }
+
+        private void RightShinButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s right shin.";
+        }
+
+        private void RightShinButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region RIGHT FOOT BUTTON
+        private void RightFootButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("These little piggies are doing great!");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                if (CurrentPatient.PatientInjury.Contains("right") && CurrentPatient.PatientInjury.Contains("foot"))
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s right foot is injured.");
+                }
+                else
+                {
+                    MessageBox.Show(CurrentPatient.PatientName + "'s right foot is ok.");
+                }
+            }
+        }
+
+        private void RightFootButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s right foot.";
+        }
+
+        private void RightFootButton_MouseLeave(object sender, EventArgs e)
         {
             textBox1.Text = null;
         }
@@ -263,11 +785,11 @@ public partial class Form1 : Form
         {
             if (CurrentPatient != null)
             {
-                if (checkBox2.Checked == false)
+                if (checkBox4.Checked == false)
                 {
-                    CurrentPatient.PatientResponsive = true;
-                    checkBox2.Checked = true;
-                    MessageBox.Show(CurrentPatient.PatientName + " was revived! Great job!");
+                    CurrentPatient.Heartbeat = true;
+                    checkBox4.Checked = true;
+                    MessageBox.Show(CurrentPatient.PatientName + "'s heart was revived! Great job!");
                     CurrentPatient.PatientInjury = "Whoah, where am I? What happened?";
                 }
                 else
@@ -283,7 +805,7 @@ public partial class Form1 : Form
             }
         }
         #endregion
-        
+
         #region TOURNIQUET BUTTON
         private void TourniquetButton_Click(object sender, EventArgs e)
         {
@@ -382,41 +904,27 @@ public partial class Form1 : Form
         }
         #endregion
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {            
-        }
+        #endregion
 
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        #region TEXTBOX & CHECKBOX CHANGED
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
         }
 
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        private void CheckBox2_CheckedChanged(object sender, EventArgs e)
         {
         }
 
-        private void button10_Click(object sender, EventArgs e)
+        private void CheckBox3_CheckedChanged(object sender, EventArgs e)
         {
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {            
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void TextBox1_TextChanged(object sender, EventArgs e)
         {
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void TextBox2_TextChanged(object sender, EventArgs e)
         {
         }
-
-        private void textBox2_TextChanged_1(object sender, EventArgs e)
-        {
-        }
-
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
-
+        #endregion
     }
