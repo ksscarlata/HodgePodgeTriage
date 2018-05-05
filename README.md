@@ -297,6 +297,32 @@ public partial class Form1 : Form
             }
         }
         #endregion
+        
+        #region TOURNIQUET BUTTON
+        private void TourniquetButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient != null)
+            {
+                if (checkBox3.Checked == true)
+                {
+                    CurrentPatient.Bleeding = false;
+                    checkBox3.Checked = false;
+                    MessageBox.Show(CurrentPatient.PatientName + " stopped bleeding! Great job!");
+                    CurrentPatient.PatientInjury = "That's better, but now what!?";
+                }
+                else
+                {
+                    MessageBox.Show("No reason for this, " + CurrentPatient.PatientName +
+                                    " isn't bleeding profusely.");
+                }
+
+                textBox2.Text =
+                "Name:\t" + CurrentPatient.PatientName + "\r\n" +
+                "Age:\t" + Convert.ToString(CurrentPatient.PatientAge) + "\r\n" +
+                "Response: \r\n\t" + CurrentPatient.PatientInjury;
+            }
+        }
+        #endregion
 
         #region ER BUTTON
         private void ErButton_Click(object sender, EventArgs e)
