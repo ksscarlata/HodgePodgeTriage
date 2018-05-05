@@ -123,7 +123,7 @@ namespace HodgePodgeTriage
     } 
     
     
-    public partial class Form1 : Form
+public partial class Form1 : Form
     {
         internal Patient CurrentPatient = new Patient(); //CurrentPatient created for use in Form1
         internal Patient DifferentPatient = new Patient(); //check for different Patient used in NewPatientButton
@@ -137,22 +137,6 @@ namespace HodgePodgeTriage
         {
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {            
-        }
-
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-        }
-
         #region NEW PATIENT BUTTON   
         /// <summary>
         /// sets CurrentPatient to CreatePatientFromList() and prints CurrentPatient info to textbox2
@@ -160,14 +144,14 @@ namespace HodgePodgeTriage
         private void NewPatientButton_Click(object sender, EventArgs e)
         {
             DifferentPatient = CurrentPatient;
-            
+
             CurrentPatient = CurrentPatient.CreatePatientFromList(); //retrieves CurrentPatient from random list in Patient()
 
             while (CurrentPatient.PatientName == DifferentPatient.PatientName) //CurrentPatient different than last used Patient()
             {
                 CurrentPatient = CurrentPatient.CreatePatientFromList();
             }
-            
+
             textBox1.Text = CurrentPatient.PatientName;
 
             textBox2.Text =
@@ -183,10 +167,15 @@ namespace HodgePodgeTriage
         #region HEAD BUTTON
         private void HeadButton_Click(object sender, EventArgs e)
         {
-            if (CurrentPatient != null)
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Great smile Rosario!");
+            }
+
+            else if (CurrentPatient != null)
             {
                 MessageBox.Show(CurrentPatient.PatientName + "'s head is ok.");
-            }            
+            }
         }
 
         private void HeadButton_MouseEnter(object sender, EventArgs e)
@@ -203,7 +192,12 @@ namespace HodgePodgeTriage
         #region NECK BUTTON
         private void NeckButton_Click(object sender, EventArgs e)
         {
-            if (CurrentPatient != null)
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Pretty much perfect.");
+            }
+
+            else if (CurrentPatient != null)
             {
                 if (CurrentPatient.PatientInjury.Contains("neck"))
                 {
@@ -214,6 +208,41 @@ namespace HodgePodgeTriage
                     MessageBox.Show(CurrentPatient.PatientName + "'s neck is ok.");
                 }
             }
+        }
+
+        private void NeckButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s neck.";
+        }
+
+        private void button3_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+        }
+        #endregion
+
+        #region CHEST BUTTON
+        private void ChestButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPatient.PatientName.Contains("Rosario"))
+            {
+                MessageBox.Show("Everything looks great here.");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                MessageBox.Show(CurrentPatient.PatientName + "'s chest is ok.");
+            }            
+        }
+
+        private void ChestButton_MouseEnter(object sender, EventArgs e)
+        {
+            textBox1.Text = "This is " + CurrentPatient.PatientName + "'s chest.";
+        }
+
+        private void ChestButton_MouseLeave(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
         }
         #endregion
 
@@ -272,7 +301,13 @@ namespace HodgePodgeTriage
         #region ER BUTTON
         private void ErButton_Click(object sender, EventArgs e)
         {
-            if (CurrentPatient != null)
+            if (textBox2.Text == string.Empty)
+            {
+                textBox1.Text = null;
+                MessageBox.Show("No reason for this.");
+            }
+
+            else if (CurrentPatient != null)
             {
                 textBox1.Text = CurrentPatient.PatientName + " has been sent to the ER.";
                 textBox2.Text = String.Empty;
@@ -284,7 +319,13 @@ namespace HodgePodgeTriage
         #region WAITING ROOM BUTTON
         private void WaitingRoomButton_Click(object sender, EventArgs e)
         {
-            if (CurrentPatient != null)
+            if (textBox2.Text == string.Empty)
+            {
+                textBox1.Text = null;
+                MessageBox.Show("No reason for this.");
+            }
+
+            else if (CurrentPatient != null)
             {
                 textBox1.Text = CurrentPatient.PatientName + " has been sent to the waiting room.";
                 textBox2.Text = String.Empty;
@@ -296,21 +337,61 @@ namespace HodgePodgeTriage
         #region YOU'RE JUST FINE BUTTON
         private void YoureJustFineButton_Click(object sender, EventArgs e)
         {
-            if (CurrentPatient != null)
+            if (textBox2.Text == string.Empty)
+            {
+                textBox1.Text = null;
+                MessageBox.Show("No reason for this.");
+            }
+
+            else if (CurrentPatient != null)
             {
                 textBox1.Text = "Get out of here " + CurrentPatient.PatientName + ". You're fine!";
+                textBox2.Text = String.Empty;
+                CurrentPatient = new Patient();
+            }            
+        }
+        #endregion
+
+        #region DECEASED BUTTON
+        private void DeceasedButton_Click(object sender, EventArgs e)
+        {
+            if (textBox2.Text == string.Empty)
+            {
+                textBox1.Text = null;
+                MessageBox.Show("No reason for this.");
+            }
+
+            else if (CurrentPatient != null)
+            {
+                textBox1.Text = "Time of death for " + CurrentPatient.PatientName + ": " + DateTime.Now;
                 textBox2.Text = String.Empty;
                 CurrentPatient = new Patient();
             }
         }
         #endregion
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {            
+        }
+
+        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+        }
+
         private void textBox1_TextChanged(object sender, EventArgs e)
         {            
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
-        {            
+        {
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -324,4 +405,6 @@ namespace HodgePodgeTriage
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
         }
+
+
     }
