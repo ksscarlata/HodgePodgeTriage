@@ -28,32 +28,44 @@ namespace HodgePodgeTriage
     {       
         #region FIELDS
         private string _patientName;
-        private int _patientAge;
+        private int _patientAge;                            
         private bool _patientBreathing;
-        private string _patientInjury = "I don't feel any pain there.";
+        private bool _patientHeartbeat;
+        private bool _patientResponsive;
+        private string _patientInjury;
+        private bool _patientBleedingProfusely;
         #endregion
 
         #region CONSTRUCTORS
         public Patient() //default
-        {            
-            this._patientAge = 0;
-            this._patientName = "No patient";
+        {
+            this._patientName = "No one";
+            this._patientAge = 0;            
             this._patientBreathing = true;
-            this._patientInjury = "No injury.";
+            this._patientHeartbeat = true;
+            this._patientResponsive = true;
+            this._patientInjury = "No injury.";            
+            this._patientBleedingProfusely = false;
         }
-        public Patient( string name, int age, bool breathing, string patientInjury ) //parameterized
-        {               
-            this._patientAge = age;
+        public Patient( string name, int age, bool breathing, bool heartbeat, bool responsive, string injury, bool bleeding ) //parameterized
+        {
             this._patientName = name;
+            this._patientAge = age;            
             this._patientBreathing = breathing;
-            this._patientInjury = patientInjury;
+            this._patientHeartbeat = heartbeat;
+            this._patientResponsive = responsive;
+            this._patientInjury = injury;            
+            this._patientBleedingProfusely = bleeding;
         }
         public Patient( Patient p ) //copy
         {
-            this._patientAge = p.PatientAge;
             this._patientName = p.PatientName;
+            this._patientAge = p.PatientAge;            
             this._patientBreathing = p._patientBreathing;
-            this._patientInjury = p._patientInjury;
+            this._patientHeartbeat = p._patientHeartbeat;
+            this._patientResponsive = p._patientResponsive;
+            this._patientInjury = p._patientInjury;            
+            this._patientBleedingProfusely = p._patientBleedingProfusely;
         }
         #endregion
 
@@ -61,68 +73,42 @@ namespace HodgePodgeTriage
         //encapsulate private fields with getters and setters
         public string PatientName { get => _patientName; set => _patientName = value; }
         public int PatientAge { get => _patientAge; set => _patientAge = value; }
-        public bool Breathing { get => _patientBreathing; set => _patientBreathing = value; }        
-        public string PatientInjury
-        {
-            get => _patientInjury;
-            set => _patientInjury = value;
-            //TRIED SETTING THIS BELOW BUT THEN COULDN'T SET IT WITH ANYTHING BUT WHAT'S TYPED HERE IN SETTER
-            //{
-            //    if (PatientName.Contains("Keith"))
-            //    {
-            //        _patientInjury = "My neck is still sore, but I'll live.";
-            //    }
-            //}                
-        }      
+        public bool Breathing { get => _patientBreathing; set => _patientBreathing = value; }
+        public bool Heartbeat { get => _patientHeartbeat; set => _patientHeartbeat = value; }
+        public bool Responsive { get => _patientResponsive; set => _patientResponsive = value; }
+        public string PatientInjury { get => _patientInjury; set => _patientInjury = value; }       
+        public bool Bleeding { get => _patientBleedingProfusely; set => _patientBleedingProfusely = value; }
         #endregion
 
         #region METHODS
+        // One method for least responsibility per class
         /// <summary>
         /// Makes a list of Patient(), randomizes it, and returns first Patient() in list
         /// </summary>
         public Patient CreatePatientFromList()
         {
             //originally had List<> in Form1.cs but moved here to try to clean up "dirty" code
-
-            List<Patient> patientList = new List<Patient>(); //list of patients
-            patientList.Add(new Patient("Keith Scarlata", 38, false, "My neck! I Can't breath!"));
-            patientList.Add(new Patient("Jerry Koetzle", 60, true, "Sharp pain in my chest!"));
-            patientList.Add(new Patient("Cory Small", 35, true, "My knee hurts!"));
-            patientList.Add(new Patient("Jeff Christensen", 35, true, "Give me money!"));
-            patientList.Add(new Patient("Roosevelt Lungren", 38, true, "My groin is on fire!"));
-            patientList.Add(new Patient("Rosario Dawson", 38, true, "Absolutely nothing at all :)"));
-            patientList.Add(new Patient("Danny Dressing", 38, true, "Ahh! My left hand!!"));
-            patientList.Add(new Patient("Steve Koppman", 59, true, "My right lower leg is killing me!"));
-            patientList.Add(new Patient("Phoenix Scarlata", 8, true, "Wait! This is a dog!"));
+                       
+            List<Patient> patientList = new List<Patient>(); //list of patients                                             //SUGGESTED ACTIONS PER PATIENT
+            patientList.Add(new Patient("Keith Scarlata", 38, false, true, true, "My neck! I Can't breath!", false));           //CLEAR AIRWAY
+            patientList.Add(new Patient("Jerry Koetzle", 60, true, false, true, "I think I'm having a heart attack!", false));  //DEFIBRILATOR
+            patientList.Add(new Patient("Cory Small", 35, true, true, true,  "My left knee hurts!", false));                         //WAITING ROOM
+            patientList.Add(new Patient("Jeff Christensen", 35, true, true, true, "Give me money!", false));                    //YOU'RE FINE
+            patientList.Add(new Patient("Roosevelt Lungren", 38, true, true, true, "My groin is on fire!", true));              //TURNIQUET GROIN :)
+            patientList.Add(new Patient("Rosario Dawson", 38, true, true, true, "Absolutely nothing at all :)", false));                  //SPECIAL REACTIONS => YOU'RE FINE
+            patientList.Add(new Patient("Danny Dressing", 38, true, true, true, "Ahh! My left hand!!!", true));                           //TOURNIQUET LEFT HAND
+            patientList.Add(new Patient("Steve Koppman", 59, true, true, true, "My right shin is killing me!", false));    //WAITING ROOM
+            patientList.Add(new Patient("Phoenix Scarlata", 8, true, true, true, "Wait! This is a dog!", false));               //YOU'RE FINE
+            patientList.Add(new Patient("Amy Grave", 35, false, false, false, "Wait! This is a dog!", true));
 
             Random rnd = new Random();
             patientList = patientList.OrderBy(item => rnd.Next()).ToList(); //sorts patientList randomly            
             
             return patientList.ElementAt(0); //use of first patient in randomized list            
-        }
+        }        
         #endregion
-    }
-    
-    
-    public interface IInjury
-    {
-        //properties
-        string BodyPartInjury { get; set; }
-        string BodyPartName { get; set; }
-        //bool BodyPart_IsInjured { get; set; }
-
-        //methods NOT implemented (to be defined inside class)
-
-        /// <summary>
-        /// Should set injury to body part 
-        /// </summary>
-        //void BelongsTo();
-        //void IsMissing();
-        
-
-    } 
-    
-    
+    }   
+   
 public partial class Form1 : Form
     {
         internal Patient CurrentPatient = new Patient(); //CurrentPatient created for use in Form1
