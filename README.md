@@ -90,16 +90,16 @@ namespace HodgePodgeTriage
             //originally had List<> in Form1.cs but moved here to try to clean up "dirty" code
                        
             List<Patient> patientList = new List<Patient>(); //list of patients                                             //SUGGESTED ACTIONS PER PATIENT
-            patientList.Add(new Patient("Keith Scarlata", 38, false, true, true, "My neck! I Can't breath!", false));           //CLEAR AIRWAY
-            patientList.Add(new Patient("Jerry Koetzle", 60, true, false, true, "I think I'm having a heart attack!", false));  //DEFIBRILATOR
-            patientList.Add(new Patient("Cory Small", 35, true, true, true,  "My left knee hurts!", false));                         //WAITING ROOM
-            patientList.Add(new Patient("Jeff Christensen", 35, true, true, true, "Give me money!", false));                    //YOU'RE FINE
-            patientList.Add(new Patient("Roosevelt Lungren", 38, true, true, true, "My groin is on fire!", true));              //TURNIQUET GROIN :)
+            patientList.Add(new Patient("Keith S", 38, false, true, true, "My neck! I Can't breath!", false));           //CLEAR AIRWAY
+            patientList.Add(new Patient("Jerry K", 60, true, false, true, "I think I'm having a heart attack!", false));  //DEFIBRILATOR
+            patientList.Add(new Patient("Cory S", 35, true, true, true,  "My left knee hurts!", false));                         //WAITING ROOM
+            patientList.Add(new Patient("Jeff C", 35, true, true, true, "Give me money!", false));                    //YOU'RE FINE
+            patientList.Add(new Patient("Rosie", 38, true, true, true, "My groin is on fire!", true));              //TURNIQUET GROIN :)
             patientList.Add(new Patient("Rosario Dawson", 38, true, true, true, "Absolutely nothing at all :)", false));                  //SPECIAL REACTIONS => YOU'RE FINE
-            patientList.Add(new Patient("Danny Dressing", 38, true, true, true, "Ahh! My left hand!!!", true));                           //TOURNIQUET LEFT HAND
-            patientList.Add(new Patient("Steve Koppman", 59, true, true, true, "My right shin is killing me!", false));    //WAITING ROOM
-            patientList.Add(new Patient("Phoenix Scarlata", 8, true, true, true, "Wait! This is a dog!", false));               //YOU'RE FINE
-            patientList.Add(new Patient("Amy Grave", 35, false, false, false, "Wait! This is a dog!", true));
+            patientList.Add(new Patient("Danny D", 38, true, true, true, "Ahh! My left hand!!!", true));                           //TOURNIQUET LEFT HAND
+            patientList.Add(new Patient("Steve K", 59, true, true, true, "My right shin is killing me!", false));    //WAITING ROOM
+            patientList.Add(new Patient("Phoenix S", 8, true, true, true, "Wait! This is a dog!", false));               //YOU'RE FINE
+            patientList.Add(new Patient("Amy G", 35, false, false, false, "Wait! This is a dog!", true));
 
             Random rnd = new Random();
             patientList = patientList.OrderBy(item => rnd.Next()).ToList(); //sorts patientList randomly            
